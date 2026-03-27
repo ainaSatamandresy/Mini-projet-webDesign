@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # Service PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    container_name: iran_db
+    environment:
+      POSTGRES_USER: ${DB_USER:-iran_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-iran_password}
+      POSTGRES_DB: ${DB_NAME:-iran_news}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - iran_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-iran_user}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Service PHP + Apache
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: iran_web
+    ports:
+      - "80:80"
+    environment:
+      DB_HOST: postgres
+      DB_USER: ${DB_USER:-iran_user}
+      DB_PASSWORD: ${DB_PASSWORD:-iran_password}
+      DB_NAME: ${DB_NAME:-iran_news}
+      DB_PORT: 5432
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - iran_network
+    command: >
+      sh -c "
+        apt-get update && apt-get install -y postgresql-client &&
+        apache2-foreground
+      "
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  iran_network:
+    driver: bridge
