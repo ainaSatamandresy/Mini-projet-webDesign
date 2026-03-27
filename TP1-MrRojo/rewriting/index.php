@@ -4,6 +4,6 @@
  */
 
 // Pour l'instant, rediriger vers l'accueil
-header('Location: /pages/home.php');
+header('Location: /frontOffice/pages/home.php');
 exit();
 ?>

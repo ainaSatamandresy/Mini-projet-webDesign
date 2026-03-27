@@ -1,0 +1,13 @@
+Options +FollowSymlinks
+RewriteEngine On
+
+# Règles de réécriture d'URL pour le frontOffice
+RewriteRule ^article/([a-z0-9\-]+)-([0-9]+)\.html$ /frontOffice/pages/article.php?id=$2 [L,QSA]
+RewriteRule ^categorie/([0-9]+)(?:/page/([0-9]+))?/?$ /frontOffice/pages/categorie.php?id=$1&p=$2 [L,QSA]
+
+# Règles pour le backOffice
+RewriteRule ^admin/?$ /backOffice/pages/modules.php [L]
+RewriteRule ^admin/modules/?$ /backOffice/pages/modules.php [L]
+
+# Redirection de l'accueil
+RewriteRule ^$ /index.php [L]	

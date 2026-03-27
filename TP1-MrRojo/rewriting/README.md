@@ -98,7 +98,7 @@ docker-compose restart
 
 ### Via CLI
 ```bash
-docker-compose exec postgres psql -U iran_user -d iran_news
+docker-compose exec postgres psql -U postgres -d iran_news
 ```
 
 ### Via un client graphique
@@ -136,7 +136,8 @@ docker-compose logs -f postgres
 ### Exécuter une commande dans un container
 ```bash
 docker-compose exec php php -v
-docker-compose exec postgres psql -U iran_user -d iran_news
+docker-compose exec postgres psql -U postgres -d iran_news
+
 ```
 
 ---
