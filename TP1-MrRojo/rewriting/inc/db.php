@@ -3,9 +3,9 @@
  * Configuration base de données PostgreSQL
  */
 
-$host = getenv('DB_HOST') ?: 'postgres';
-$db_user = getenv('DB_USER') ?: 'iran_user';
-$db_password = getenv('DB_PASSWORD') ?: 'iran_password';
+$host = getenv('DB_HOST') ?: 'db';
+$db_user = getenv('DB_USER') ?: 'admin';
+$db_password = getenv('DB_PASSWORD') ?: 'secret';
 $db_name = getenv('DB_NAME') ?: 'iran_news';
 $port = getenv('DB_PORT') ?: 5432;
 
