@@ -1,1 +1,16 @@
 <h1>TEST</h1>
+
+<textarea id="mon-editeur">
+  <h1>Mon Titre venant du BO</h1>
+</textarea>
+
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js"></script>
+
+<script>
+  tinymce.init({
+    selector: '#mon-editeur',
+    menubar: false,
+    plugins: 'lists link image',
+    toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright'
+  });
+</script>
